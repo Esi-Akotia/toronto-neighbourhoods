@@ -11,7 +11,7 @@ Neighbourhood crime rates
 
 Project outcomes: 
 
-> Conduct exploratory analysis of the attributes above to gain a clear understanding of the layout of each municipality
+Conduct exploratory analysis of the attributes above to gain a clear understanding of the layout of each municipality
 Create an overlay map / multiple maps of the Toronto neighbourhoods to show these 3 variables with dropdown menus that update the map based on the 3 factors
 
 ### Questions to answer:
