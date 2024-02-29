@@ -29,28 +29,44 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //             }).addTo(map);
 //         });
 //     });
-
-// VERSION 2: The fill color of the each neighborhood was colored as the assualt Rate 2023 and the border was colored black
-    fetch('/data')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(geojson => {
-            L.geoJson(JSON.parse(geojson), {
-                style: function(feature) {
-                    return {
-                        fillColor: getColor(feature.properties.ASSAULT_RATE_2023),
-                        color: 'black',  // Border color
-                        weight: 1,       // Border width
-                        fillOpacity: 1   // Fill opacity
-                    };
-                },
-                onEachFeature: function(feature, layer) {
-                    layer.bindPopup('Neighborhood: ' + feature.properties.AREA_NAME +
-                                    '<br>Assault Rate (2023): ' + feature.properties.ASSAULT_RATE_2023);
-                }
-            }).addTo(map);
-        });
+// build function to get the trend of the crime rate
+function getCrimeRateTrendHtml(crimeRate2022, crimeRate2023) {
+    let trendSymbol = crimeRate2023 > crimeRate2022 ? '↑' : '↓';
+    let trendColor = crimeRate2023 > crimeRate2022 ? 'red' : 'green';
+    return `<span style="color: ${trendColor};">${trendSymbol}</span>`;
+}
+// build function to generate the popup content
+function generatePopupContent(feature) {
+    let content = `<h3>${feature.properties.AREA_NAME}</h3><p>Population 2023: ${feature.properties.POPULATION_2023}</p>`;
+    const crimes = ['ASSAULT', 'AUTOTHEFT', 'BIKETHEFT', 'BREAKENTER', 'HOMICIDE', 'ROBBERY', 'SHOOTING', 'THEFTFROMMV', 'THEFTOVER'];
+    crimes.forEach(crime => {
+        let rate2022 = feature.properties[`${crime}_RATE_2022`];
+        let rate2023 = feature.properties[`${crime}_RATE_2023`];
+        content += `<p>${crime} Rate 2023: ${rate2023} ${getCrimeRateTrendHtml(rate2022, rate2023)}</p>`;
     });
+    return content;
+}
+// VERSION 2: The fill color of the each neighborhood was colored as the assualt Rate 2023 and the border was colored black
+fetch('/data')
+.then(response => response.json())
+.then(data => {
+    data.forEach(geojson => {
+        L.geoJson(JSON.parse(geojson), {
+            style: function(feature) {
+                return {
+                    fillColor: getColor(feature.properties.ASSAULT_RATE_2023),
+                    color: 'black',  // Border color
+                    weight: 1,       // Border width
+                    fillOpacity: 1   // Fill opacity
+                };
+            },
+            onEachFeature: function(feature, layer) {
+                let popupContent = generatePopupContent(feature);
+                layer.bindPopup(popupContent);
+            }
+        }).addTo(map);
+    });
+});
 
 
 // Define the color scale function
