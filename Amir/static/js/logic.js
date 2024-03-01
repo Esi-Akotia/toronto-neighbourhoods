@@ -6,6 +6,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
 }).addTo(map);
 
+var schoolLayer = L.layerGroup().addTo(map);
+var parkLayer = L.layerGroup().addTo(map);
+
+fetch('/schooldata').then(r => r.json()).then(data => {
+    L.geoJson(data, {
+        pointToLayer: (feature, latlng) => L.marker(latlng),
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`Name: ${feature.properties.NAME}<br>Type: ${feature.properties.SCHOOL_TYPE_DESC}`);
+        }
+    }).addTo(schoolLayer);
+});
 // VERSION 1: The border of the each neighborhood was colored as the assualt Rate 2023 (Fixed in Version 2)
 
 // // Fetch and style the GeoJSON data
@@ -47,7 +58,7 @@ function generatePopupContent(feature) {
     return content;
 }
 // VERSION 2: The fill color of the each neighborhood was colored as the assualt Rate 2023 and the border was colored black
-fetch('/data')
+fetch('/crimedata')
 .then(response => response.json())
 .then(data => {
     data.forEach(geojson => {
