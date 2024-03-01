@@ -10,44 +10,48 @@ var schoolLayer = L.layerGroup().addTo(map);
 var parkLayer = L.layerGroup().addTo(map);
 var crimeLayer = L.layerGroup().addTo(map);
 
+// Using Bootstrap Icons for the school and park icons to help with the visual representation
+var schoolIcon = L.icon({
+    iconUrl: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/icons/book.svg',
+    iconSize: [20, 20],     // Size of the icon
+    iconAnchor: [16, 32],   // Anchor point of the icon (center bottom)
+    popupAnchor: [0, -32]   // Popup offset relative to the icon anchor
+});
+
+var parkIcon = L.icon({
+    iconUrl: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/icons/tree-fill.svg',
+    iconSize: [20, 20],     // Size of the icon
+    iconAnchor: [16, 32],   // Anchor point of the icon (center bottom)
+    popupAnchor: [0, -32]   // Popup offset relative to the icon anchor
+});
 
 // Fetch and add the school data
 fetch('/schooldata')
     .then(response => response.json())
     .then(data => {
         L.geoJson(data, {
-            pointToLayer: (feature, latlng) => L.marker(latlng),
+            pointToLayer: (feature, latlng) => L.marker(latlng, { icon: schoolIcon }), // Use school icon
             onEachFeature: (feature, layer) => {
+                const schooltype = feature.properties.schooltype || 'N/A';
                 layer.bindPopup(`Name: ${feature.properties.NAME}<br>Type: ${feature.properties.SCHOOL_TYPE_DESC}`);
             }
         }).addTo(schoolLayer);
     });
-// Fetch and add the park data
-fetch('/parksdata').then(r => r.json()).then(data => {
-    L.geoJson(data, {
-        pointToLayer: (feature, latlng) => L.marker(latlng),
-        onEachFeature: (feature, layer) => {
-            const amenities = feature.properties.AMENITIES || 'N/A';
-            layer.bindPopup(`Amenities: ${amenities}`);
-        }
-    }).addTo(parkLayer);
-});
 
-// Fetch and add the park data
-fetch('/parksdata').then(r => r.json()).then(data => {
-    L.geoJson(data, {
-        pointToLayer: function(feature, latlng) {
-            // Assuming using the first point for MultiPoint geometries
-            var point = feature.geometry.type === 'MultiPoint' ? feature.geometry.coordinates[0] : latlng;
-            return L.marker([point[1], point[0]]); // Note: GeoJSON is [long, lat], Leaflet uses [lat, long]
-        },
-        onEachFeature: function(feature, layer) {
-            const amenities = feature.properties.AMENITIES ? feature.properties.AMENITIES : 'N/A';
-            layer.bindPopup(`Park Name: ${feature.properties.ASSET_NAME}<br>Amenities: ${amenities}`);
-        }
-    }).addTo(parkLayer);
-});
 
+
+
+fetch('/parksdata')
+    .then(response => response.json())
+    .then(data => {
+        L.geoJson(data, {
+            pointToLayer: (feature, latlng) => L.marker(latlng, { icon: parkIcon }), // Use park icon
+            onEachFeature: (feature, layer) => {
+                const amenities = feature.properties.AMENITIES || 'N/A';
+                layer.bindPopup(`Park Name: ${feature.properties.ASSET_NAME}<br>Amenities: ${amenities}`);
+            }
+        }).addTo(parkLayer);
+    });
 // VERSION 1: The border of the each neighborhood was colored as the assualt Rate 2023 (Fixed in Version 2)
 
 // // Fetch and style the GeoJSON data
