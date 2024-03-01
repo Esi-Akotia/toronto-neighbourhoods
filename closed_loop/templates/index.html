@@ -6,8 +6,70 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div id="map" style="width: 100%; height: 600px;"></div>
+    <div id="map" style="width: 80%; height: 400px;"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 </body>
 </html>
+
+ <!-- Dropdown -->        
+            <title>Dropdown Menu</title>
+            <style>
+                
+                .dropdown {
+                    position: absolute; top: 0; left: 0.1;
+                    display: inline-block;
+                }
+        
+                
+                .dropdown-button {
+                    background-color: #000000;
+                    color: white;
+                    padding: 10px;
+                    border-radius: 50px;
+                    border: none;
+                    cursor: pointer;
+                }
+        
+                
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    top: 100%; 
+                    background-color: #000000;
+                    min-width: 160px;
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                    z-index: 1;
+                }
+        
+                
+                .dropdown-content a {
+                    color: rgb(255, 255, 255);
+                    padding: 12px 16px;
+                    text-decoration: none;
+                    display: block;
+                }
+        
+                
+                .dropdown:hover .dropdown-content {
+                    display: block;
+                }
+            </style>
+        </head>
+        <body>
+            
+        
+        <div class="dropdown">
+            <button class="dropdown-button">Select Municipality</button>
+            <div class="dropdown-content">
+                <a href="#">East York</a>
+                <a href="#">Etbicoke</a>
+                <a href="#">Former Toronto</a>
+                <a href="#">North York</a>
+                <a href="#">Scarborough</a>
+            </div>
+        </div>
+        
+        </body>
+        </html>         
+              
