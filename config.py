@@ -1,1 +1,0 @@
-mongo_esi_url = "mongodb+srv://torontorealestate:ZBRGJ9snxTYJENDm@cluster0.t5fae8x.mongodb.net/"
