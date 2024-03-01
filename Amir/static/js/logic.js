@@ -8,15 +8,46 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 var schoolLayer = L.layerGroup().addTo(map);
 var parkLayer = L.layerGroup().addTo(map);
+var crimeLayer = L.layerGroup().addTo(map);
 
-fetch('/schooldata').then(r => r.json()).then(data => {
+
+// Fetch and add the school data
+fetch('/schooldata')
+    .then(response => response.json())
+    .then(data => {
+        L.geoJson(data, {
+            pointToLayer: (feature, latlng) => L.marker(latlng),
+            onEachFeature: (feature, layer) => {
+                layer.bindPopup(`Name: ${feature.properties.NAME}<br>Type: ${feature.properties.SCHOOL_TYPE_DESC}`);
+            }
+        }).addTo(schoolLayer);
+    });
+// Fetch and add the park data
+fetch('/parksdata').then(r => r.json()).then(data => {
     L.geoJson(data, {
         pointToLayer: (feature, latlng) => L.marker(latlng),
         onEachFeature: (feature, layer) => {
-            layer.bindPopup(`Name: ${feature.properties.NAME}<br>Type: ${feature.properties.SCHOOL_TYPE_DESC}`);
+            const amenities = feature.properties.AMENITIES || 'N/A';
+            layer.bindPopup(`Amenities: ${amenities}`);
         }
-    }).addTo(schoolLayer);
+    }).addTo(parkLayer);
 });
+
+// Fetch and add the park data
+fetch('/parksdata').then(r => r.json()).then(data => {
+    L.geoJson(data, {
+        pointToLayer: function(feature, latlng) {
+            // Assuming using the first point for MultiPoint geometries
+            var point = feature.geometry.type === 'MultiPoint' ? feature.geometry.coordinates[0] : latlng;
+            return L.marker([point[1], point[0]]); // Note: GeoJSON is [long, lat], Leaflet uses [lat, long]
+        },
+        onEachFeature: function(feature, layer) {
+            const amenities = feature.properties.AMENITIES ? feature.properties.AMENITIES : 'N/A';
+            layer.bindPopup(`Park Name: ${feature.properties.ASSET_NAME}<br>Amenities: ${amenities}`);
+        }
+    }).addTo(parkLayer);
+});
+
 // VERSION 1: The border of the each neighborhood was colored as the assualt Rate 2023 (Fixed in Version 2)
 
 // // Fetch and style the GeoJSON data
@@ -40,6 +71,8 @@ fetch('/schooldata').then(r => r.json()).then(data => {
 //             }).addTo(map);
 //         });
 //     });
+
+
 // build function to get the trend of the crime rate
 function getCrimeRateTrendHtml(crimeRate2022, crimeRate2023) {
     let trendSymbol = crimeRate2023 > crimeRate2022 ? '↑' : '↓';
@@ -57,7 +90,8 @@ function generatePopupContent(feature) {
     });
     return content;
 }
-// VERSION 2: The fill color of the each neighborhood was colored as the assualt Rate 2023 and the border was colored black
+
+//VERSION 2: The fill color of the each neighborhood was colored as the assualt Rate 2023 and the border was colored black
 fetch('/crimedata')
 .then(response => response.json())
 .then(data => {
@@ -68,7 +102,7 @@ fetch('/crimedata')
                     fillColor: getColor(feature.properties.ASSAULT_RATE_2023),
                     color: 'black',  // Border color
                     weight: 1,       // Border width
-                    fillOpacity: 1   // Fill opacity
+                    fillOpacity: 0.3   // Fill opacity
                 };
             },
             onEachFeature: function(feature, layer) {
@@ -80,7 +114,7 @@ fetch('/crimedata')
 });
 
 
-// Define the color scale function
+// // Define the color scale function
 function getColor(assaultRate) {
     return assaultRate > 1500 ? '#800026' :
            assaultRate > 1100 ? '#BD0026' :
@@ -114,4 +148,13 @@ legend.onAdd = function (map) {
     return div;
 };
 
-legend.addTo(map);
+// legend.addTo(map);
+
+// Add layer control
+var overlayMaps = {
+    "Schools": schoolLayer,
+    "Parks": parkLayer,
+    "Crime": crimeLayer
+};
+
+L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
