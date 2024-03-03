@@ -12,7 +12,8 @@ var crimeLayer = L.layerGroup().addTo(map);
 
 // Using Bootstrap Icons for the school and park icons to help with the visual representation
 var schoolIcon = L.icon({
-    iconUrl: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/icons/book.svg',
+    // iconUrl: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/icons/book.svg',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/@tabler/icons@2.47.0/icons/school.svg',
     iconSize: [20, 20],     // Size of the icon
     iconAnchor: [16, 32],   // Anchor point of the icon (center bottom)
     popupAnchor: [0, -32]   // Popup offset relative to the icon anchor
@@ -37,7 +38,6 @@ fetch('/schooldata')
             }
         }).addTo(schoolLayer);
     });
-
 
 
 
@@ -106,7 +106,7 @@ fetch('/crimedata')
                     fillColor: getColor(feature.properties.ASSAULT_RATE_2023),
                     color: 'black',  // Border color
                     weight: 1,       // Border width
-                    fillOpacity: 0.3   // Fill opacity
+                    fillOpacity: 0.5 // Fill opacity
                 };
             },
             onEachFeature: function(feature, layer) {
