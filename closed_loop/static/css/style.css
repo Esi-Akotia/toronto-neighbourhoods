@@ -68,7 +68,7 @@ body, html {
 
 .chart-container {
     border: 2px solid #000000; 
-    padding: 0px; 
+    padding-left: 10px; 
     margin-bottom: 20px auto;
     height: 30vh;
     width: 19vw;
