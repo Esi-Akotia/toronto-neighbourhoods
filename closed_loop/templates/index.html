@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Map View</title>
+    <title>Welcome to Toronto</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function moveToNextDiv() {
+            var nextDiv = document.getElementById('map');
+            nextDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
 </head>
 <body>
-    <div id="map" style="width: 100%; height: 600px;"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-auto">
+                <div id="header">
+                    <h1 onclick="moveToNextDiv()" style="cursor: pointer; color: whitesmoke;">
+                        <span style="text-decoration: none;">Find Your Ideal Toronto Neighbourhood Today!</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <h1>Sidebar would go in this space here. Is this big enough? If not, I can adjust it</h1>
+            </div>
+            
+            <div class="col-md-10">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 </body>

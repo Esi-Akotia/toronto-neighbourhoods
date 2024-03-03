@@ -31,11 +31,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     });
 
 // VERSION 2: The fill color of the each neighborhood was colored as the assualt Rate 2023 and the border was colored black
-    fetch('/data')
+fetch('/data')
     .then(response => response.json())
     .then(data => {
         data.forEach(geojson => {
-            L.geoJson(JSON.parse(geojson), {
+            L.geoJson(geojson, { // Removed parse as no longer required
                 style: function(feature) {
                     return {
                         fillColor: getColor(feature.properties.ASSAULT_RATE_2023),
@@ -51,6 +51,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             }).addTo(map);
         });
     });
+    
 
 
 // Define the color scale function

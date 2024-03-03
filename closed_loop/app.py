@@ -21,7 +21,7 @@ def data():
     # Fetch the GeoJSON data from MongoDB
     crime_data = collection.find()  
     # Convert the MongoDB document to a JSON string
-    crime_data_json = [json.dumps(doc, default=json_util.default) for doc in crime_data]
+    crime_data_json = [json.loads(json.dumps(doc, default=json_util.default)) for doc in crime_data] ### Added json.loads so the data on the API endpoint is more clear 
     return jsonify(crime_data_json)
 
 if __name__ == '__main__':
