@@ -1,5 +1,5 @@
 
-var map = L.map('map').setView([43.7, -79.4], 12);  // Center the map over Toronto
+var map = L.map('map').setView([43.7, -79.4], 11);  // Center the map over Toronto
 
 // Add base map tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

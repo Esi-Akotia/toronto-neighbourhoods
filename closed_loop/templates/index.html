@@ -28,15 +28,70 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 bg-light">
                 <h1>Sidebar would go in this space here. Is this big enough? If not, I can adjust it</h1>
             </div>
             
             <div class="col-md-10">
                 <div id="map"></div>
+
+                <div class = "dropdown">
+                    <select id="Neighbourhood">
+                    <option value ="Enter/Import Neighbourhoods Here">Enter/Import Neighbourhoods Here</option>
+                    </select>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart1">
+                                <h1>Chart 1 area</h1>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart2">
+                                <h1>Chart 2 area</h1>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart3">
+                                <h1>Chart 3 area</h1>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart4">
+                                <h1>Chart 4 area</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ="slideshow">
+                    <h1>Slideshow Presentation</h1>
+                    <!-- Link below to be replaced with slideshow link -->
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQSYXI-j87pGrPzp_WFGPhf4n0SkjmXcoUS0xTIKlo0ZYZdHNGbexVDgtbXGMYUVq9Npz952B51lPz4/embed?start=false&loop=false&delayms=3000" frameborder="2" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>                
+                </div>
+
+
             </div>
         </div>
+
+        </div>
     </div>
+
+    </div>
+
+
+
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
