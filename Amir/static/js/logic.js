@@ -338,7 +338,7 @@ fetch('/crimedata')
                         fillColor: getColor(feature.properties.ASSAULT_RATE_2023),
                         color: 'black',  // Border color
                         weight: 1,       // Border width
-                        fillOpacity: 0.5 // Fill opacity
+                        fillOpacity: 0.44 // Fill opacity
                     };
                 },
                 onEachFeature: function(feature, layer) {
