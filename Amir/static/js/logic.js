@@ -487,3 +487,88 @@ document.getElementById('Neighbourhood').addEventListener('change', function() {
     updateCrimeChart(this.value);
 });
 
+// Charting the Crime Rate overtime as linechart (2015-2023)
+
+// Function to update line chart based on selected neighborhood
+function updateLineChart(neighborhoodName) {
+    fetch('/crimedata')
+        .then(response => response.json())
+        .then(data => {
+            const selectedNeighborhoodData = data.find(neighborhood => neighborhood.properties.AREA_NAME === neighborhoodName);
+        
+
+            const crimeTypes = ['ASSAULT', 'AUTOTHEFT', 'BIKETHEFT', 'BREAKENTER', 'HOMICIDE', 'ROBBERY', 'SHOOTING', 'THEFTFROMMV', 'THEFTOVER'];
+            const years = ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
+            const crimeDataByType = {};
+
+            crimeTypes.forEach(crimeType => {
+                crimeDataByType[crimeType] = years.map(year => selectedNeighborhoodData.properties[`${crimeType}_RATE_${year}`]);
+            });
+
+            const crimeLineChartData = {
+                labels: years,
+                datasets: crimeTypes.map((crimeType, index) => ({
+                    label: crimeType,
+                    data: crimeDataByType[crimeType],
+                
+                    borderColor:[
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(159, 159, 159, 1)',
+                        'rgba(83, 102, 255, 1)',
+                        'rgba(40, 159, 64, 1)',
+                    ],
+                    borderWidth: 1.5,
+                    fill: false
+                }))
+            };
+
+            const lineChartOptions = {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: `Crime Types Trend in ${neighborhoodName} (2015-2023)`
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Crime Rate'
+                        }
+                    }
+                }
+            };
+
+            const crimeLineChartElement = document.getElementById('crimeLineChart').getContext('2d');
+            if (window.crimeLineChartInstance) {
+                window.crimeLineChartInstance.destroy(); // DELETE the existing chart instance if present
+            }
+            window.crimeLineChartInstance = new Chart(crimeLineChartElement, {
+                type: 'line',
+                data: crimeLineChartData,
+                options: lineChartOptions
+            });
+        });
+}
+
+// Event listener for dropdown changes
+document.getElementById('Neighbourhood').addEventListener('change', function() {
+    updateLineChart(this.value);
+});

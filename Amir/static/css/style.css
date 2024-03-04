@@ -45,6 +45,10 @@ body, html {
     width: 100%; /* Adjust width as needed */
     height: 1000px; /* Adjust height as needed */
 }
+#crimeLineChart {
+    width: 100%; /* Adjust width as needed */
+    height: 1000px; /* Adjust height as needed */
+}
 
 .col-md-10 {
     padding-right: 0 !important;
