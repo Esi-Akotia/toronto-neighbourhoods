@@ -1,13 +1,194 @@
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Map View</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Welcome to Toronto</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function moveToNextDiv() {
+            var nextDiv = document.getElementById('map');
+            nextDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div id="map" style="width: 100%; height: 600px;"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-auto">
+                <div id="header">
+                    <h1 onclick="moveToNextDiv()" style="cursor: pointer; color: whitesmoke;">
+                        <span style="text-decoration: none;">Find Your Ideal Toronto Neighbourhood Today!</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 bg-light">
+                <h1>Sidebar would go in this space here. Is this big enough? If not, I can adjust it</h1>
+            </div>
+            
+            <div class="col-md-10">
+                <div id="map"></div>
+
+
+                <div class = "dropdown">
+                    <select id="Neighbourhood">
+                        <option value ="Choose A Neighbourhood Here">Choose A Neighbourhood Here</option>
+                        <option value="Agincourt North">Agincourt North</option>
+                        <option value="Agincourt South-Malvern West">Agincourt South-Malvern West</option>
+                        <option value="Alderwood">Alderwood</option>
+                        <option value="Annex">Annex</option>
+                        <option value="Avondale">Avondale</option>
+                        <option value="Banbury-Don Mills">Banbury-Don Mills</option>
+                        <option value="Bathurst Manor">Bathurst Manor</option>
+                        <option value="Bay-Cloverhill">Bay-Cloverhill</option>
+                        <option value="Bayview Village">Bayview Village</option>
+                        <option value="Bayview Woods-Steeles">Bayview Woods-Steeles</option>
+                        <option value="Bedford Park-Nortown">Bedford Park-Nortown</option>
+                        <option value="Beechborough-Greenbrook">Beechborough-Greenbrook</option>
+                        <option value="Bendale South">Bendale South</option>
+                        <option value="Bendale-Glen Andrew">Bendale-Glen Andrew</option>
+                        <option value="Birchcliffe-Cliffside">Birchcliffe-Cliffside</option>
+                        <option value="Black Creek">Black Creek</option>
+                        <option value="Blake-Jones">Blake-Jones</option>
+                        <option value="Briar Hill-Belgravia">Briar Hill-Belgravia</option>
+                        <option value="Bridle Path-Sunnybrook-York Mills">Bridle Path-Sunnybrook-York Mills</option>
+                        <option value="Broadview North">Broadview North</option>
+                        <option value="Brookhaven-Amesbury">Brookhaven-Amesbury</option>
+                        <option value="Cabbagetown-South St.James Town">Cabbagetown-South St.James Town</option>
+                        <option value="Caledonia-Fairbank">Caledonia-Fairbank</option>
+                        <option value="Casa Loma">Casa Loma</option>
+                        <option value="Centennial Scarborough">Centennial Scarborough</option>
+                        <option value="Church-Wellesley">Church-Wellesley</option>
+                        <option value="Clairlea-Birchmount">Clairlea-Birchmount</option>
+                        <option value="Clanton Park">Clanton Park</option>
+                        <option value="Cliffcrest">Cliffcrest</option>
+                        <option value="Corso Italia-Davenport">Corso Italia-Davenport</option>
+                        <option value="Danforth">Danforth</option>
+                        <option value="Danforth East York">Danforth East York</option>
+                        <option value="Don Valley Village">Don Valley Village</option>
+                        <option value="Dorset Park">Dorset Park</option>
+                        <option value="Dovercourt Village">Dovercourt Village</option>
+                        <option value="Downsview">Downsview</option>
+                        <option value="Downtown Yonge East">Downtown Yonge East</option>
+                        <option value="Dufferin Grove">Dufferin Grove</option>
+                        <option value="East End-Danforth">East End-Danforth</option>
+                        <option value="East L'Amoreaux">East L'Amoreaux</option>
+                        <option value="East Willowdale">East Willowdale</option>
+                        <option value="Edenbridge-Humber Valley">Edenbridge-Humber Valley</option>
+                        <option value="Eglinton East">Eglinton East</option>
+                        <option value="Elms-Old Rexdale">Elms-Old Rexdale</option>
+                        <option value="Englemount-Lawrence">Englemount-Lawrence</option>
+                        <option value="Eringate-Centennial-West Deane">Eringate-Centennial-West Deane</option>
+                        <option value="Etobicoke City Centre">Etobicoke City Centre</option>
+                        <option value="Etobicoke West Mall">Etobicoke West Mall</option>
+                        <option value="Fenside-Parkwoods">Fenside-Parkwoods</option>
+                        <option value="Flemingdon Park">Flemingdon Park</option>
+                        <option value="Forest Hill North">Forest Hill North</option>
+                        <option value="Forest Hill South">Forest Hill South</option>
+                        <option value="Fort York-Liberty Village">Fort York-Liberty Village</option>
+                        <option value="Glenfield-Jane Heights">Glenfield-Jane Heights</option>
+                        <option value="Golfdale-Cedarbrae-Woburn">Golfdale-Cedarbrae-Woburn</option>
+                        <option value="Greenwood-Coxwell">Greenwood-Coxwell</option>
+                        <option value="Guildwood">Guildwood</option>
+                        <option value="Harbourfront-CityPlace">Harbourfront-CityPlace</option>
+                        <option value="Henry Farm">Henry Farm</option>
+                        <option value="High Park North">High Park North</option>
+                        <option value="High Park-Swansea">High Park-Swansea</option>
+                        <option value="Highland Creek">Highland Creek</option>
+                        <option value="Hillcrest Village">Hillcrest Village</option>
+                        <option value="Humber Bay Shores">Humber Bay Shores</option>
+                        <option value="Humber Heights-Westmount">Humber Heights-Westmount</option>
+                        <option value="Humber Summit">Humber Summit</option>
+                        <option value="Humbermede">Humbermede</option>
+                        <option value="Humewood-Cedarvale">Humewood-Cedarvale</option>
+                        <option value="Ionview">Ionview</option>
+                        <option value="Islington">Islington</option>
+                        <option value="Junction Area">Junction Area</option>
+                        <option value="Junction-Wallace Emerson">Junction-Wallace Emerson</option>
+                        <option value="Keelesdale-Eglinton West">Keelesdale-Eglinton West</option>
+                        <option value="Kennedy Park">Kennedy Park</option>
+                        <option value="Kensington-Chinatown">Kensington-Chinatown</option>
+                        <option value="Kingsview Village-The Westway">Kingsview Village-The Westway</option>
+                        <option value="Kingsway South">Kingsway South</option>
+                        <option value="L'Amoreaux West">L'Amoreaux West</option>
+                        <option value="Lambton Baby Point">Lambton Baby Point</option>
+                        <option value="Lansing-Westgate">Lansing-Westgate</option>
+                        <option value="Lawrence Park North">Lawrence Park North</option>
+                        <option value="Lawrence Park South">Lawrence Park South</option>
+                        <option value="Leaside-Bennington">Leaside-Bennington</option>
+                        <option value="Little Portugal">Little Portugal</option>
+                        <option value="Long Branch">Long Branch</option>
+                        <option value="Malvern East">Malvern East</option>
+                        <option value="Malvern West">Malvern West</option>
+                        <option value="Maple Leaf">Maple Leaf</option>
+                        <option value="Markland Wood">Markland Wood</option>
+                        <option value="Milliken">Milliken</option>
+                        <option value="Mimico-Queensway">Mimico-Queensway</option>
+                        <option value="Morningside">Morningside</option>
+                        <option value="Morningside Heights">Morningside Heights</option>
+                        <option value="Moss Park">Moss Park</option>
+                    </select>
+                </div>
+
+
+                    <div class="row">
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart1">
+                                <h1>Chart 1 area</h1>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart2">
+                                <h1>Chart 2 area</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart3">
+                                <canvas id="crimeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="chart-container">
+                            <div id="Chart4">
+                                <h1>Chart 4 area</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id ="slideshow">
+                    <h1>Slideshow Presentation</h1>
+                    <!-- Link below to be replaced with slideshow link -->
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQSYXI-j87pGrPzp_WFGPhf4n0SkjmXcoUS0xTIKlo0ZYZdHNGbexVDgtbXGMYUVq9Npz952B51lPz4/embed?start=false&loop=false&delayms=3000" frameborder="2" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>                
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="{{ url_for('static', filename='js/logic.js') }}"></script>
 </body>

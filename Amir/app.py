@@ -24,7 +24,7 @@ def index():
 def crimedata():
     # Fetch the GeoJSON data from MongoDB's crime collection
     crime_data = crime_collection.find()
-    crime_data_json = [json.dumps(doc, default=json_util.default) for doc in crime_data]
+    crime_data_json = [json.loads(json.dumps(doc, default=json_util.default)) for doc in crime_data] ### Added json.loads so the data on the API endpoint is more clear 
     return jsonify(crime_data_json)
 
 @app.route('/schooldata')
