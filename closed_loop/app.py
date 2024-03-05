@@ -14,7 +14,7 @@ collection = db['crime']
 
 @app.route('/')
 def index():
-    return render_template('rough index.html')
+    return render_template('index.html')
 
 @app.route('/data')
 def data():
