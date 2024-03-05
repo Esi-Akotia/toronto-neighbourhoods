@@ -36,8 +36,8 @@ def schooldata():
     school_data_list = list(school_data)
     
     # Use bson.json_util.dumps to serialize the list of dictionaries to JSON format
-    school_data_json = json_util.dumps(school_data_list)
-    
+    school_data_json = json.loads(json_util.dumps(school_data_list)) ### Added json.loads so the data on the API endpoint is more clear 
+ 
     # Return the JSON data
     return school_data_json
 
@@ -49,7 +49,7 @@ def parksdata():
     #Convert MongoDB cursor to a list of dictionaries
     parks_data_list = list(parks_data)
     #Use bson.json_util.dumps to serialize the list of dictionaries to JSON format
-    parks_data_json = json_util.dumps(parks_data_list)
+    parks_data_json = json.loads(json_util.dumps(parks_data_list)) ### Added json.loads so the data on the API endpoint is more clear
     #Return the JSON data
     return parks_data_json
 
