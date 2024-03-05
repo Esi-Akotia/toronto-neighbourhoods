@@ -1,6 +1,8 @@
 body, html {
     width: 100%;
     height: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 #header {
     position: relative;
@@ -9,9 +11,9 @@ body, html {
     background-image: url('https://openclipart.org/image/2000px/307354');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:cover;
     width: 100vw;
-    height: 100vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
@@ -20,8 +22,8 @@ body, html {
 }
 
 #header h1 {
-    font-size: 60px;
-    margin-bottom: 60px; 
+    font-size: 50px;
+    margin-bottom: 10px; 
     color: whitesmoke;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -40,6 +42,16 @@ body, html {
     padding-left:0 !important;
 
 }
+
+#crimeChart {
+    width: 100%; 
+    height: 1000px; 
+}
+#crimeLineChart {
+    width: 100%; 
+    height: 1000px; 
+}
+
 .col-md-10 {
     padding-right: 0 !important;
     padding-left:15px !important;
@@ -68,10 +80,11 @@ body, html {
 
 .chart-container {
     border: 2px solid #000000; 
-    padding-left: 10px; 
-    margin-bottom: 20px auto;
-    height: 30vh;
-    width: 19vw;
+    padding: 10px; 
+    margin-bottom: 50px;
+    margin-top: 0px;
+    height: 60vh;
+    width: 40vw;
     justify-content: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
     display: flex;
@@ -86,3 +99,13 @@ body, html {
     text-align: center;
     margin-bottom: 20px;
 }
+
+#crimeChart { 
+    height: 600px;
+    max-width: 100%;
+} 
+
+#crimeLineChart {
+    max-width: 100%;
+}
+
