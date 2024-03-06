@@ -1,19 +1,96 @@
 body, html {
     width: 100%;
     height: 100%;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    margin:0;
+    overflow-x: hidden;
+}
+
+#map {
+    height: 100vh;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.bi {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  /*
+   * Sidebar
+   */
+  
+  @media (min-width: 768px) {
+    .sidebar .offcanvas-lg {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 48px;
+    }
+    .navbar-search {
+      display: block;
+    }
+  }
+  
+  .sidebar .nav-link {
+    font-size: .875rem;
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .sidebar .nav-link.active {
+    color: #2470dc;
+  }
+  
+  .sidebar-heading {
+    font-size: .75rem;
+  }
+
+  .sidebar ::after{
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #2470dc;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: 0.5s;
+  }
+
+  .sidebar :hover::after{
+    width: 100%;
+  }
+  
+  /*
+   * Navbar
+   */
+  
+  .navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  }
+  
+  .navbar .form-control {
+    padding: .75rem 1rem;
+  }
+  
+body, html {
+    width: 100%;
+    height: 100%;
 }
 #header {
     position: relative;
     text-align: center;
-    color: white; 
-    background-image: url('https://openclipart.org/image/2000px/307354');
+    color: rgb(255, 255, 255); 
+    background-image: url('https://vastphotos.com/files/uploads/photos/10920/high-resolution-toronto-skyline-l.jpg?v=20220712073521');
     background-position: center;
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
     width: 100vw;
-    height: 50vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
@@ -22,9 +99,13 @@ body, html {
 }
 
 #header h1 {
-    font-size: 50px;
-    margin-bottom: 10px; 
+    font-size: 60px;
+    margin-bottom: 60px; 
     color: whitesmoke;
+    font-size: 50px;
+    font-weight: bolder;
+    margin-bottom: 10px; 
+    color: rgb(223, 39, 39);
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 #header h1 span:hover {
@@ -42,7 +123,6 @@ body, html {
     padding-left:0 !important;
 
 }
-
 #crimeChart {
     width: 100%; 
     height: 1000px; 
@@ -51,7 +131,6 @@ body, html {
     width: 100%; 
     height: 1000px; 
 }
-
 .col-md-10 {
     padding-right: 0 !important;
     padding-left:15px !important;
@@ -60,7 +139,7 @@ body, html {
 
 #map {
     height: 100vh;
-    width: 100%;
+    max-width: 98%;
     margin-bottom: 20px;
 }
 
@@ -85,8 +164,8 @@ body, html {
     margin-top: 0px;
     height: 60vh;
     width: 40vw;
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
+    justify-content: center; 
+    align-items: center; 
     display: flex;
 
 }
@@ -100,12 +179,32 @@ body, html {
     margin-bottom: 20px;
 }
 
+
 #crimeChart { 
-    height: 600px;
+    height: 500px;
     max-width: 100%;
 } 
 
 #crimeLineChart {
     max-width: 100%;
+
 }
 
+.nav-item1{
+    font-size: 20px;
+}
+
+.nav-item2{
+    font-size: 20px;
+}
+
+.nav-item3{
+    font-size: 20px;
+}
+
+.nav-item4{
+    font-size: 20px;
+}
+.col-md-10 {
+    padding-left: 5px;
+}
