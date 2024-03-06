@@ -53,6 +53,7 @@ def parksdata():
     #Return the JSON data
     return parks_data_json
 
+# @app.route('/Resources')
 
 if __name__ == '__main__':
     app.run(debug=True)
