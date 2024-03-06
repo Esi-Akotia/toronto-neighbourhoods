@@ -35,7 +35,6 @@ Tools used:
 -HTML/CSS
 
 Data Sources:
-
 - School locations - https://open.toronto.ca/dataset/school-locations-all-types/
 - Parks & Recreation Facilities - https://open.toronto.ca/dataset/parks-and-recreation-facilities/
 - Neighbourhood Crime Rates - https://open.toronto.ca/dataset/neighbourhood-crime-rates/
