@@ -99,10 +99,9 @@ body, html {
 }
 
 #header h1 {
-    font-size: 60px;
-    margin-bottom: 60px; 
+    margin-bottom: 100px; 
     color: whitesmoke;
-    font-size: 50px;
+    font-size: 80px;
     font-weight: bolder;
     margin-bottom: 10px; 
     color: rgb(223, 39, 39);
@@ -140,7 +139,7 @@ body, html {
 #map {
     height: 100vh;
     max-width: 98%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 #slideshow iframe{
@@ -159,8 +158,9 @@ body, html {
 
 .chart-container {
     border: 2px solid #000000; 
-    padding: 10px; 
-    margin-bottom: 50px;
+    padding-left: 10px; 
+    padding-right:10px;
+    margin-bottom: 40px;
     margin-top: 0px;
     height: 60vh;
     width: 40vw;
@@ -176,7 +176,7 @@ body, html {
 .dropdown {
     margin: 0 auto;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 
