@@ -1,4 +1,5 @@
 
+
 var map = L.map('map').setView([43.7, -79.4], 12);  // Center the map over Toronto
 
 // Add base map tiles
@@ -8,7 +9,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 var schoolLayer = L.layerGroup()
 var parkLayer = L.layerGroup()
-var crimeLayer = L.layerGroup().addTo(map)
+var crimeLayer = L.layerGroup().addTo(map);
 
 // Using Bootstrap Icons for the school and park icons to help with the visual representation
 var schoolIcon = L.icon({
@@ -43,6 +44,7 @@ function generatePopupContent(feature) {
     });
     return content;
 }
+
 
 // Fetch and add the school data
 fetch('/schooldata')
@@ -127,7 +129,7 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
-// Add more layer control
+// Add layer control
 var overlayMaps = {
     "Schools": schoolLayer,
     "Parks": parkLayer,
@@ -138,11 +140,15 @@ L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
 
 
 
+
+
+
+
 // Charting the Crime Rate as Pie chart (2023)
 
 // Function to fetch crime data and update the pie chart
 function updateCrimeChart(neighborhoodName) {
-    fetch('/crimedata') 
+    fetch('/crimedata') // Adjust this URL to your actual endpoint
         .then(response => response.json())
         .then(data => {
             // Filter data for the selected neighborhood
@@ -314,3 +320,94 @@ document.getElementById('Neighbourhood').addEventListener('change', function() {
 });
 
 
+
+
+
+
+
+
+
+
+// Charting School Type data in Municipalities
+
+// Function to fetch school count data and plot stacked bar graph
+fetch('/schcountdata')
+    .then(response => response.json())
+    .then(jsonData => { // <-- Fix: jsonData should be passed to the callback
+        // Extract the necessary data
+        const municipalities = jsonData.map(item => item.Municipality);
+        const schoolTypes = Object.keys(jsonData[0]).filter(key => key !== 'Municipality');
+        const countsByType = schoolTypes.map(type => jsonData.map(item => item[type]));
+
+        // Create the stacked bar graph
+        const schChart = document.getElementById('stacked-bar-chart').getContext('2d');
+        const stackedBarChart = new Chart(schChart, {
+            type: 'bar',
+            data: {
+                labels: municipalities,
+                datasets: schoolTypes.map((type, index) => ({
+                    label: type,
+                    data: countsByType[index],
+                    backgroundColor: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`,
+                    stack: 'Stack 1' // Ensure each dataset is stacked
+                }))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
+            }
+        });
+    });
+
+// Function to fetch school count data and update the interactive bar graph
+function updateSchoolChart(selectedMunicipality) {
+    console.log("Updating graph for:", selectedMunicipality); // Debugging
+
+    fetch('/schcountdata') // Adjust this URL to your actual endpoint
+        .then(response => response.json())
+        .then(data => {
+            // Filter data for the selected municipality
+            const selectedData = data.find(feature => feature.Municipality === selectedMunicipality);
+            if (!selectedData) return; // Exit if no data found
+
+            // Extract school count data for the selected municipality
+            var xLabels = Object.keys(selectedData).filter(key => key !== "Municipality" && key !== "_id");
+            //var counts = Object.values(selectedData).slice(1).map(value => parseInt(value)); // Extract counts
+            var counts = xLabels.map(label => selectedData[label]); // Extract counts
+            console.log("Selected data:", counts); // Debugging
+
+            var data = [{
+                x: xLabels,
+                y: counts,
+                type: 'bar'
+            }];
+
+            var layout = {
+                title: 'School Type Bar Graph for ' + selectedMunicipality,
+                xaxis: { title: 'School Type' },
+                yaxis: { title: 'Count' }
+            };
+
+            // Clear the interactive-bar div before creating a new plot
+            Plotly.purge('interactive-bar');
+
+            Plotly.newPlot('interactive-bar', data, layout);
+        });
+}
+
+// Event listener for dropdown selection change
+document.getElementById('Municipality').addEventListener('change', function() {
+    updateSchoolChart(this.value);
+});
+
+// Initial plot for default selected municipality
+var defaultMunicipality = municipalities[0];
+updateSchoolChart(defaultMunicipality);

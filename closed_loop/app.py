@@ -14,7 +14,8 @@ db = client['opendata']
 # Separate collections for crime, schools, and parks
 crime_collection = db['crime']
 school_collection = db['school']  
-parks_collection = db['parks']    
+parks_collection = db['parks'] 
+schcount_collection = db['schoolcountcsv']  
 
 @app.route('/')
 def index():
@@ -36,8 +37,8 @@ def schooldata():
     school_data_list = list(school_data)
     
     # Use bson.json_util.dumps to serialize the list of dictionaries to JSON format
-    school_data_json = json_util.dumps(school_data_list)
-    
+    school_data_json = json.loads(json_util.dumps(school_data_list)) ### Added json.loads so the data on the API endpoint is more clear 
+ 
     # Return the JSON data
     return school_data_json
 
@@ -49,9 +50,20 @@ def parksdata():
     #Convert MongoDB cursor to a list of dictionaries
     parks_data_list = list(parks_data)
     #Use bson.json_util.dumps to serialize the list of dictionaries to JSON format
-    parks_data_json = json_util.dumps(parks_data_list)
+    parks_data_json = json.loads(json_util.dumps(parks_data_list)) ### Added json.loads so the data on the API endpoint is more clear
     #Return the JSON data
     return parks_data_json
+
+@app.route('/schcountdata')
+def schcountdata():
+    # Fetch the GeoJSON data from MongoDB's school collection
+    schcount_data = schcount_collection.find()
+    #Convert MongoDB cursor to a list of dictionaries
+    schcount_data_list = list(schcount_data)
+    #Use bson.json_util.dumps to serialize the list of dictionaries to JSON format
+    schcount_data_json = json.loads(json_util.dumps(schcount_data_list)) ### Added json.loads so the data on the API endpoint is more clear
+    #Return the JSON data
+    return schcount_data_json
 
 
 if __name__ == '__main__':
