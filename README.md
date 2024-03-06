@@ -27,13 +27,6 @@ Mapping
 - School type: Public vs Private, other variances?
 - Parks & recreation - amenities
 
-Tools used:
--Mongo DB
--Python
--Javascript
--Jupyter
--HTML/CSS
-
 Data Sources:
 
 - School locations - https://open.toronto.ca/dataset/school-locations-all-types/
