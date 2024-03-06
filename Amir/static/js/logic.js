@@ -142,7 +142,7 @@ L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
 
 // Function to fetch crime data and update the pie chart
 function updateCrimeChart(neighborhoodName) {
-    fetch('/crimedata') // Adjust this URL to your actual endpoint
+    fetch('/crimedata') 
         .then(response => response.json())
         .then(data => {
             // Filter data for the selected neighborhood
