@@ -1,13 +1,11 @@
 body, html {
+    margin: 100px;
+    padding: 50;
     width: 100%;
     height: 100%;
-    margin:0;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
 }
 
 #map {
-    margin-top: 15px;
     height: 100vh;
     width: 100%;
     margin-bottom: 20px;
@@ -28,7 +26,7 @@ body, html {
     .sidebar .offcanvas-lg {
       position: -webkit-sticky;
       position: sticky;
-      top: 100px;
+      top: 48px;
     }
     .navbar-search {
       display: block;
@@ -101,9 +99,10 @@ body, html {
 }
 
 #header h1 {
-    margin-bottom: 100px; 
+    font-size: 60px;
+    margin-bottom: 60px; 
     color: whitesmoke;
-    font-size: 80px;
+    font-size: 50px;
     font-weight: bolder;
     margin-bottom: 10px; 
     color: rgb(223, 39, 39);
@@ -124,14 +123,6 @@ body, html {
     padding-left:0 !important;
 
 }
-#crimeChart {
-    width: 100%; 
-    height: 1000px; 
-}
-#crimeLineChart {
-    width: 100%; 
-    height: 1000px; 
-}
 .col-md-10 {
     padding-right: 0 !important;
     padding-left:15px !important;
@@ -140,8 +131,8 @@ body, html {
 
 #map {
     height: 100vh;
-    max-width: 98%;
-    margin-bottom: 30px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 #slideshow iframe{
@@ -161,13 +152,11 @@ body, html {
 .chart-container {
     border: 2px solid #000000; 
     padding-left: 10px; 
-    padding-right:10px;
-    margin-bottom: 40px;
-    margin-top: 0px;
-    height: 60vh;
-    width: 40vw;
-    justify-content: center; 
-    align-items: center; 
+    margin-bottom: 20px auto;
+    height: 30vh;
+    width: 19vw;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
     display: flex;
 
 }
@@ -178,7 +167,7 @@ body, html {
 .dropdown {
     margin: 0 auto;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 
@@ -206,35 +195,4 @@ body, html {
 
 .nav-item4{
     font-size: 20px;
-}
-.col-md-10 {
-    padding-left: 5px;
-}
-#stacked-bar-chart {
-    width: 100%; 
-    height: 750px; 
-}
-#interactive-bar {
-    width: 100%; 
-    height: 100%; 
-}
-.form-select {
-    width: 25% !important; 
-    margin: 0 auto; 
-    padding: .25rem .5rem; 
-    font-size: 0.9rem; 
-    line-height: 1.3; 
-    border: 1px solid #ced4da;
-    border-radius: .2rem;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23343a40' class='bi bi-chevron-down' viewBox='0 0 16 16'%3e%3cpath d='M1.646 5.646a.5.5 0 0 1 .708 0L8 11.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right .5rem center; 
-    background-size: 12px 12px; 
-}
-
-
-.form-select option {
-    background-color: white;
-    color: black;
 }
