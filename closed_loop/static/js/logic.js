@@ -228,11 +228,30 @@ function updateCrimeChart(neighborhoodName) {
         });
 }
 
-// Event listener for dropdown changes
-document.getElementById('Neighbourhood').addEventListener('change', function() {
-    updateCrimeChart(this.value);
-});
+// // Event listener for dropdown changes
+// document.getElementById('Neighbourhood').addEventListener('change', function() {
+//     updateCrimeChart(this.value);
+// });
 
+document.getElementById('Neighbourhood').addEventListener('change', function() {
+    const neighborhoodName = this.value;
+    updateCrimeChart(neighborhoodName); // Existing call to update the crime chart
+    updateLineChart(neighborhoodName); // Existing call to update the line chart
+    // NEW: Update population display for the selected neighborhood
+    fetch('/crimedata') // Use the existing crime data endpoint
+        .then(response => response.json())
+        .then(data => {
+            const selectedData = data.find(feature => feature.properties.AREA_NAME === neighborhoodName);
+            if (!selectedData) return; // Exit if no data found
+            // Assuming 'POPULATION_2023' is the property holding the population data
+            const population = selectedData.properties.POPULATION_2023;
+            const populationDisplay = document.getElementById('populationDisplay'); // Ensure you have this ID in your HTML
+            if (populationDisplay) {
+                populationDisplay.textContent = `Chosen Neighborhood Population: ${population}`;
+                populationDisplay.style.fontSize = '68px'; // Display in big fonts as requested
+            }
+        });
+});
 // Charting the Crime Rate overtime as linechart (2015-2023)
 
 // Function to update line chart based on selected neighborhood
