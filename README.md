@@ -32,3 +32,12 @@ Data Sources:
 - School locations - https://open.toronto.ca/dataset/school-locations-all-types/
 - Parks & Recreation Facilities - https://open.toronto.ca/dataset/parks-and-recreation-facilities/
 - Neighbourhood Crime Rates - https://open.toronto.ca/dataset/neighbourhood-crime-rates/
+
+
+## User Guide
+
+- Install necessary packages: pymongo, flask, json, bson
+- Open closed loop folder in VS Code or other IDEs
+- Run the app.py file - ensure the index.html, the logic.js, and the style.css files are all in the respective folders
+- Create a config.py file and enter your URL to access the MongoDB database (request permission from owner)
+- Navigate the web page on your local host
